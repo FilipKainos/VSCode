@@ -97,7 +97,7 @@ function formatTime(seconds) {
 const progressBarWrap = document.createElement('div');
 progressBarWrap.id = 'progress-bar-wrap';
 progressBarWrap.style.width = '100%';
-progressBarWrap.style.height = '14px';
+progressBarWrap.style.height = '50px';
 progressBarWrap.style.background = '#fff7b2';
 progressBarWrap.style.borderRadius = '10px';
 progressBarWrap.style.margin = '18px 0 10px 0';
@@ -345,8 +345,38 @@ card.appendChild(timerDisplay);
 card.appendChild(progressBarWrap);
 card.appendChild(controls);
 
+
+// --- Test Sound Button ---
+const testSoundBtn = document.createElement('button');
+testSoundBtn.textContent = 'Test Sound';
+testSoundBtn.style.width = '100%';
+testSoundBtn.style.maxWidth = '400px';
+testSoundBtn.style.margin = '18px 0 0 0';
+testSoundBtn.style.padding = '16px 0';
+testSoundBtn.style.background = 'linear-gradient(90deg, #ffe388 0%, #b6e388 100%)';
+testSoundBtn.style.color = '#222';
+testSoundBtn.style.fontSize = '1.18rem';
+testSoundBtn.style.fontWeight = 'bold';
+testSoundBtn.style.border = 'none';
+testSoundBtn.style.borderRadius = '14px';
+testSoundBtn.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
+testSoundBtn.style.cursor = 'pointer';
+testSoundBtn.style.letterSpacing = '0.01em';
+testSoundBtn.onmouseover = () => {
+  testSoundBtn.style.background = 'linear-gradient(90deg, #fff7b2 0%, #ffe388 100%)';
+  testSoundBtn.style.boxShadow = '0 4px 18px rgba(255,200,0,0.18)';
+  testSoundBtn.style.transform = 'translateY(-2px) scale(1.03)';
+};
+testSoundBtn.onmouseout = () => {
+  testSoundBtn.style.background = 'linear-gradient(90deg, #ffe388 0%, #b6e388 100%)';
+  testSoundBtn.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
+  testSoundBtn.style.transform = 'none';
+};
+testSoundBtn.onclick = playBeepPattern;
+
 app.innerHTML = '';
 app.style.display = 'flex';
 app.style.flexDirection = 'column';
 app.style.alignItems = 'center';
 app.appendChild(card);
+app.appendChild(testSoundBtn);
