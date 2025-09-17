@@ -379,4 +379,31 @@ app.style.display = 'flex';
 app.style.flexDirection = 'column';
 app.style.alignItems = 'center';
 app.appendChild(card);
+
 app.appendChild(testSoundBtn);
+
+// --- Volume Slider Bar ---
+const volumeBarContainer = document.createElement('div');
+volumeBarContainer.className = 'volume-bar-container';
+
+const volumeLabel = document.createElement('label');
+volumeLabel.textContent = 'Volume';
+volumeLabel.setAttribute('for', 'volume-slider');
+
+const volumeSlider = document.createElement('input');
+volumeSlider.type = 'range';
+volumeSlider.min = '0';
+volumeSlider.max = '1';
+volumeSlider.step = '0.01';
+volumeSlider.value = beep.volume;
+volumeSlider.id = 'volume-slider';
+volumeSlider.className = 'volume-slider';
+volumeSlider.style.marginLeft = '8px';
+
+volumeSlider.oninput = (e) => {
+  beep.volume = parseFloat(e.target.value);
+};
+
+volumeBarContainer.appendChild(volumeLabel);
+volumeBarContainer.appendChild(volumeSlider);
+app.appendChild(volumeBarContainer);
