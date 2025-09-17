@@ -1,4 +1,56 @@
 // Entry point for EggTimer app
+
+// --- Falling Eggs Background ---
+const eggCanvas = document.getElementById('falling-eggs-bg');
+if (eggCanvas) {
+  const ctx = eggCanvas.getContext('2d');
+  let eggs = [];
+  const eggCount = 18;
+  function randomEgg() {
+    return {
+      x: Math.random() * window.innerWidth,
+      y: -40 - Math.random() * 200,
+      r: 18 + Math.random() * 10,
+      speed: 1.2 + Math.random() * 1.8,
+      tilt: Math.random() * Math.PI * 2,
+      tiltSpeed: 0.01 + Math.random() * 0.02
+    };
+  }
+  function drawEgg(egg) {
+    ctx.save();
+    ctx.translate(egg.x, egg.y);
+    ctx.rotate(egg.tilt);
+    ctx.scale(1, 1.25);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, egg.r, egg.r * 1.2, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = '#fffbe6';
+    ctx.shadowColor = '#ffe388';
+    ctx.shadowBlur = 12;
+    ctx.fill();
+    ctx.restore();
+  }
+  function animateEggs() {
+    ctx.clearRect(0, 0, eggCanvas.width, eggCanvas.height);
+    for (let egg of eggs) {
+      drawEgg(egg);
+      egg.y += egg.speed;
+      egg.tilt += egg.tiltSpeed;
+      if (egg.y - egg.r * 1.2 > window.innerHeight) {
+        Object.assign(egg, randomEgg());
+        egg.y = -egg.r * 1.2;
+      }
+    }
+    requestAnimationFrame(animateEggs);
+  }
+  function resizeEggCanvas() {
+    eggCanvas.width = window.innerWidth;
+    eggCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeEggCanvas);
+  resizeEggCanvas();
+  eggs = Array.from({length: eggCount}, randomEgg);
+  animateEggs();
+}
 // See TASK-project-structure.md, TASK-basic-timer-logic.md, TASK-timer-ui.md
 import EggTimer from './timer.js';
 const app = document.getElementById('app');
