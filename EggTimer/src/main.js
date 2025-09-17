@@ -323,10 +323,60 @@ function playBeepPattern() {
   next();
 }
 
-// Patch timer finish callback to play beep pattern
+// Confetti animation (3 seconds)
+function launchConfetti() {
+  const confettiCount = 48;
+  const confettiColors = ['#ffe388', '#b6e388', '#ffb7b2', '#ffd6a5', '#fffbe6', '#7fc97f', '#ff6f91'];
+  const confettiContainer = document.createElement('div');
+  confettiContainer.style.position = 'absolute';
+  confettiContainer.style.left = '0';
+  confettiContainer.style.top = '0';
+  confettiContainer.style.width = '100%';
+  confettiContainer.style.height = '100%';
+  confettiContainer.style.pointerEvents = 'none';
+  confettiContainer.style.overflow = 'visible';
+  confettiContainer.style.zIndex = '10';
+
+  // Position over timer display
+  timerDisplay.style.position = 'relative';
+  timerDisplay.appendChild(confettiContainer);
+
+  for (let i = 0; i < confettiCount; i++) {
+    const conf = document.createElement('div');
+    conf.style.position = 'absolute';
+    conf.style.left = '50%';
+    conf.style.top = '50%';
+    conf.style.width = '10px';
+    conf.style.height = '18px';
+    conf.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    conf.style.borderRadius = '3px';
+    conf.style.transform = `translate(-50%, -50%) rotate(${Math.random()*360}deg)`;
+    conf.style.opacity = '0.85';
+    confettiContainer.appendChild(conf);
+
+    // Animate
+    const angle = (2 * Math.PI * i) / confettiCount;
+    const distance = 80 + Math.random() * 120;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+    const rotate = 360 + Math.random() * 360;
+    setTimeout(() => {
+      conf.style.transition = 'transform 2.5s cubic-bezier(.2,1.2,.4,1), opacity 2.5s';
+      conf.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
+      conf.style.opacity = '0';
+    }, 10);
+  }
+  // Remove confetti after animation
+  setTimeout(() => {
+    if (confettiContainer.parentNode) confettiContainer.parentNode.removeChild(confettiContainer);
+  }, 3000);
+}
+
+// Patch timer finish callback to play beep pattern and confetti
 timer.onFinish = () => {
   timerDisplay.textContent = 'Done!';
   playBeepPattern();
+  launchConfetti();
 };
 
 // --- App Layout ---
