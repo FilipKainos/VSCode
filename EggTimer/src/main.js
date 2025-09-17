@@ -77,28 +77,26 @@ const timer = new EggTimer(
 timer.setTime(timerDuration);
 
 
-// --- Preset Buttons Card ---
+// --- Preset Buttons Row ---
 const presetCard = document.createElement('div');
 presetCard.id = 'preset-card';
 presetCard.style.display = 'flex';
-presetCard.style.flexDirection = 'column';
+presetCard.style.justifyContent = 'center';
 presetCard.style.alignItems = 'center';
-presetCard.style.background = 'linear-gradient(90deg, #ffe388 0%, #b6e388 100%)';
-presetCard.style.borderRadius = '18px';
-presetCard.style.boxShadow = '0 2px 12px rgba(255,200,0,0.10)';
-presetCard.style.padding = '18px 18px 10px 18px';
-presetCard.style.margin = '0 0 18px 0';
-presetCard.style.maxWidth = '400px';
 presetCard.style.width = '100%';
+presetCard.style.margin = '0 0 10px 0';
 presetCard.style.boxSizing = 'border-box';
 
 const presetButtons = document.createElement('div');
 presetButtons.id = 'preset-buttons';
 presetButtons.style.display = 'flex';
+presetButtons.style.flexWrap = 'wrap';
 presetButtons.style.justifyContent = 'center';
 presetButtons.style.alignItems = 'center';
 presetButtons.style.gap = '18px';
 presetButtons.style.width = '100%';
+presetButtons.style.maxWidth = '100%';
+presetButtons.style.padding = '0 8px';
 presetButtons.style.boxSizing = 'border-box';
 
 const presets = [
@@ -285,24 +283,15 @@ card.id = 'timer-card';
 card.style.maxWidth = '400px';
 card.style.width = '100%';
 card.style.boxSizing = 'border-box';
+card.style.display = 'flex';
+card.style.flexDirection = 'column';
+card.style.alignItems = 'center';
 
-// Flex column for all card content
-const cardFlex = document.createElement('div');
-cardFlex.style.display = 'flex';
-cardFlex.style.flexDirection = 'column';
-cardFlex.style.alignItems = 'center';
-cardFlex.style.width = '100%';
-cardFlex.style.boxSizing = 'border-box';
-
-// Remove margin from presetCard so it fits flush
-presetCard.style.margin = '0 0 10px 0';
-
-cardFlex.appendChild(presetCard);
-cardFlex.appendChild(customTimeForm);
-cardFlex.appendChild(timerDisplay);
-cardFlex.appendChild(progressBarWrap);
-cardFlex.appendChild(controls);
-card.appendChild(cardFlex);
+card.appendChild(presetCard);
+card.appendChild(customTimeForm);
+card.appendChild(timerDisplay);
+card.appendChild(progressBarWrap);
+card.appendChild(controls);
 
 app.innerHTML = '';
 app.style.display = 'flex';
