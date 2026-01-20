@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#22c55e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Calorie Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="./assets/main-BHVflR48.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-GZ6Hhb1g.css">
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg">
+  <div class="max-w-lg mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+          <i data-lucide="flame" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">Calorie Tracker</h1>
+          <p class="text-primary-100 text-sm">Track your daily nutrition</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-2xl font-bold" id="latest-weight">-- kg</div>
+        <div class="text-primary-100 text-xs">Current Weight</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <main class="max-w-lg mx-auto px-4 pb-8 pt-4">
+    
+    <!-- Date Navigation -->
+    <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+  <div class="flex items-center justify-between">
+    <button id="prev-day" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+      <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
+    </button>
+    
+    <div class="flex items-center gap-3">
+      <div class="text-center">
+        <div id="current-date-display" class="font-semibold text-gray-900">Today</div>
+        <input 
+          type="date" 
+          id="date-picker" 
+          class="text-xs text-primary-600 bg-transparent border-none cursor-pointer text-center focus:outline-none"
+        >
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <button id="today-btn" class="px-3 py-1.5 text-sm font-medium bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors">
+        Today
+      </button>
+      <button id="next-day" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-3 gap-3 mb-4">
+  <!-- Daily Calories -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 text-center">
+    <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+      <i data-lucide="flame" class="w-5 h-5 text-orange-500"></i>
+    </div>
+    <div class="text-2xl font-bold text-gray-900" id="daily-calories">0</div>
+    <div class="text-xs text-gray-500">Calories</div>
+  </div>
+  
+  <!-- Daily Cost -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 text-center">
+    <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+      <i data-lucide="wallet" class="w-5 h-5 text-green-500"></i>
+    </div>
+    <div class="text-2xl font-bold text-gray-900" id="daily-cost">$0</div>
+    <div class="text-xs text-gray-500">Spent</div>
+  </div>
+  
+  <!-- Entry Count -->
+  <div class="bg-white rounded-2xl shadow-sm p-4 text-center">
+    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+      <i data-lucide="utensils" class="w-5 h-5 text-blue-500"></i>
+    </div>
+    <div class="text-2xl font-bold text-gray-900" id="daily-count">0</div>
+    <div class="text-xs text-gray-500">Meals</div>
+  </div>
+</div>
+
+
+    <!-- Tab Navigation -->
+    <div class="flex border-b border-gray-200 mb-4">
+      <button data-tab="food" class="flex-1 py-3 px-4 text-sm font-medium border-b-2 border-primary-500 text-primary-600 flex items-center justify-center gap-2">
+        <i data-lucide="utensils" class="w-4 h-4"></i>
+        Food
+      </button>
+      <button data-tab="weight" class="flex-1 py-3 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center justify-center gap-2">
+        <i data-lucide="scale" class="w-4 h-4"></i>
+        Weight
+      </button>
+      <button data-tab="stats" class="flex-1 py-3 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center justify-center gap-2">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+        Stats
+      </button>
+    </div>
+
+    <!-- Tab Panels -->
+    <!-- Food Panel -->
+    <div data-panel="food">
+      <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+  <h2 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+    <i data-lucide="plus-circle" class="w-4 h-4 text-primary-500"></i>
+    Add Food Entry
+  </h2>
+  
+  <form id="food-form" class="space-y-3">
+    <div>
+      <label for="food-name" class="block text-xs font-medium text-gray-600 mb-1">Food Name</label>
+      <input 
+        type="text" 
+        id="food-name" 
+        name="name"
+        required
+        placeholder="e.g., Chicken Salad"
+        class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+      >
+    </div>
+    
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label for="food-calories" class="block text-xs font-medium text-gray-600 mb-1">Calories</label>
+        <input 
+          type="number" 
+          id="food-calories" 
+          name="calories"
+          required
+          min="1"
+          placeholder="0"
+          class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+        >
+      </div>
+      
+      <div>
+        <label for="food-cost" class="block text-xs font-medium text-gray-600 mb-1">Cost (optional)</label>
+        <input 
+          type="number" 
+          id="food-cost" 
+          name="cost"
+          min="0"
+          step="0.01"
+          placeholder="$0.00"
+          class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+        >
+      </div>
+    </div>
+    
+    <button 
+      type="submit"
+      class="w-full py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all shadow-sm flex items-center justify-center gap-2"
+    >
+      <i data-lucide="plus" class="w-4 h-4"></i>
+      Add Entry
+    </button>
+  </form>
+</div>
+
+      <div class="bg-white rounded-2xl shadow-sm p-4">
+  <h2 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+    <i data-lucide="list" class="w-4 h-4 text-primary-500"></i>
+    Today's Entries
+  </h2>
+  
+  <div id="daily-entries" class="space-y-2">
+    <div class="text-center text-gray-500 py-8">
+      <i data-lucide="utensils" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+      <p>No food entries for this day</p>
+      <p class="text-sm mt-1">Add your first meal above!</p>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Weight Panel -->
+    <div data-panel="weight" class="hidden">
+      <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+  <h2 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+    <i data-lucide="scale" class="w-4 h-4 text-blue-500"></i>
+    Record Weight
+  </h2>
+  
+  <form id="weight-form" class="space-y-3">
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label for="weight-value" class="block text-xs font-medium text-gray-600 mb-1">Weight (kg)</label>
+        <input 
+          type="number" 
+          id="weight-value" 
+          name="weight"
+          required
+          min="20"
+          max="500"
+          step="0.1"
+          placeholder="70.0"
+          class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        >
+      </div>
+      
+      <div>
+        <label for="weight-date" class="block text-xs font-medium text-gray-600 mb-1">Date</label>
+        <input 
+          type="date" 
+          id="weight-date" 
+          name="date"
+          required
+          class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        >
+      </div>
+    </div>
+    
+    <button 
+      type="submit"
+      class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm flex items-center justify-center gap-2"
+    >
+      <i data-lucide="save" class="w-4 h-4"></i>
+      Record Weight
+    </button>
+  </form>
+</div>
+
+<script>
+  // Set default date to today
+  document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('weight-date');
+    if (dateInput) {
+      dateInput.value = new Date().toISOString().split('T')[0];
+    }
+  });
+</script>
+
+      <div class="bg-white rounded-2xl shadow-sm p-4">
+  <h2 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+    <i data-lucide="history" class="w-4 h-4 text-blue-500"></i>
+    Weight History
+  </h2>
+  
+  <div id="weight-history" class="space-y-2">
+    <div class="text-center text-gray-500 py-6">
+      <i data-lucide="scale" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
+      <p>No weight records yet</p>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Stats Panel -->
+    <div data-panel="stats" class="hidden">
+      <div class="space-y-4">
+  <!-- Weekly Average -->
+  <div class="bg-white rounded-2xl shadow-sm p-4">
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+        <i data-lucide="calendar-days" class="w-5 h-5 text-purple-500"></i>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900">Weekly Average</h3>
+        <p class="text-xs text-gray-500" id="weekly-days">0 days tracked</p>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-purple-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-purple-600" id="weekly-avg-calories">0</div>
+        <div class="text-xs text-purple-500">Avg Calories/Day</div>
+      </div>
+      <div class="bg-purple-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-purple-600" id="weekly-avg-cost">$0</div>
+        <div class="text-xs text-purple-500">Avg Cost/Day</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly Average -->
+  <div class="bg-white rounded-2xl shadow-sm p-4">
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+        <i data-lucide="calendar" class="w-5 h-5 text-indigo-500"></i>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900">Monthly Average</h3>
+        <p class="text-xs text-gray-500" id="monthly-period">No data</p>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-indigo-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-indigo-600" id="monthly-avg-calories">0</div>
+        <div class="text-xs text-indigo-500">Avg Calories/Day</div>
+      </div>
+      <div class="bg-indigo-50 rounded-xl p-3 text-center">
+        <div class="text-2xl font-bold text-indigo-600" id="monthly-avg-cost">$0</div>
+        <div class="text-xs text-indigo-500">Avg Cost/Day</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Tips -->
+  <div class="bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-sm p-4 text-white">
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+        <i data-lucide="lightbulb" class="w-5 h-5"></i>
+      </div>
+      <h3 class="font-semibold">Quick Tips</h3>
+    </div>
+    
+    <ul class="space-y-2 text-sm text-primary-100">
+      <li class="flex items-start gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+        Track every meal for accurate insights
+      </li>
+      <li class="flex items-start gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+        Weigh yourself at the same time daily
+      </li>
+      <li class="flex items-start gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+        Use the cost tracker to manage food budget
+      </li>
+    </ul>
+  </div>
+
+  <!-- Data Info -->
+  <div class="bg-gray-50 rounded-2xl p-4 text-center">
+    <div class="flex items-center justify-center gap-2 text-gray-500 text-sm">
+      <i data-lucide="shield-check" class="w-4 h-4"></i>
+      <span>All data stored locally on your device</span>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Container -->
+  <div id="notification-container"></div>
+
+</body>
+</html>
